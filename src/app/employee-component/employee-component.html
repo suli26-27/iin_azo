@@ -1,0 +1,86 @@
+<h2>Dolgozók</h2>
+
+<button class="btn btn-primary" (click)="toggleModal()">Hozzáad</button>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Név</th>
+      <th>Település</th>
+      <th>Fizetés</th>
+      <th>Beosztás</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for( emp of employees ; track emp.id) {
+      <tr>
+        <td>{{emp.id}}</td>
+        <td>{{emp.name}}</td>
+        <td>{{emp.city}}</td>
+        <td>{{emp.salary}}</td>
+        <td>{{emp.positonId}}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+
+
+@if(visibleModal) {
+
+
+<div>
+    
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" 
+            data-bs-dismiss="modal" aria-label="Close"
+            (click)="toggleModal()"></button>
+          </div>
+          <div class="modal-body">
+            
+
+            <form [formGroup]="employeeForm" 
+            (ngSubmit)="saveEmployee()" id="employeeForm">
+                <div>
+                    <label for="name" class="form-label">Név</label>
+                    <input type="text" class="form-control"
+                    formControlName="name" id="name">
+                </div>
+                <div>
+                    <label for="city" class="form-label">Település</label>
+                    <input type="text" class="form-control"
+                    formControlName="city" id="city">
+                </div>
+                <div>
+                    <label for="salary" class="form-label">Fizetés</label>
+                    <input type="text" class="form-control"
+                    formControlName="salary" id="salary">
+                </div>
+                <div>
+                    <label for="positionId" class="form-label">Beosztás</label>
+                    <input type="text" class="form-control"
+                    formControlName="positionId" id="positionId">
+                </div>
+            </form>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" 
+            class="btn btn-secondary" 
+            (click)="toggleModal()">Bezárás</button>
+            
+            <button type="submit" class="btn btn-primary"
+            form="employeeForm">Mentés</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+}
