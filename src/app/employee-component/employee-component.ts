@@ -113,7 +113,32 @@ export class EmployeeComponent {
 
   updateEmployee() {
     console.log('Ide jön majd az update...')
+    // const emp: Employee = {
+    //   id: Number(this.employeeForm.value.id),
+    //   name: this.employeeForm.value.name,
+    //   city: this.employeeForm.value.city,
+    //   salary: Number(this.employeeForm.value.salary),
+    //   positionId: Number(this.employeeForm.value.positionId)
+    // }
+    // const emp = this.employeeForm.getRawValue()
+    // console.log('Az emp: ' + emp)
+    this.employeeApi.updateEmployee(this.employeeForm.value).subscribe({
+      next: (res) => { 
+        console.log('Eredmény: ' + res)
+        this.getEmployees()
+      },
+      error: () => {}
+    })
   }
 
-  deleteEmployee() {}
+  deleteEmployee(id: number) {
+    console.log(id)
+    this.employeeApi.deleteEmployee(id).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.getEmployees()
+      },
+      error: () => {}
+    })
+  }
 }
