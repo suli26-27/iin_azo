@@ -4,6 +4,7 @@ import { EmployeeService } from '../shared/employee-service';
 import { Position } from '../interfaces/position';
 import { PositionService } from '../shared/position-service';
 import { PositionNamePipe } from '../shared/pipe/position-name-pipe';
+import { Employee } from '../interfaces/employee';
 
 @Component({
   imports: [ReactiveFormsModule, PositionNamePipe],
@@ -22,6 +23,7 @@ export class EmployeeComponent {
   positions = signal<Position[]>([])
 
   employeeForm = this.builder.group({
+    id: [''],
     name: [''],
     city: [''],
     salary: [''],
@@ -52,10 +54,24 @@ export class EmployeeComponent {
     this.visibleModal = !this.visibleModal
   }
 
+  showModal() {
+    this.visibleModal = true
+  }
+  hideModal() {
+    this.visibleModal = false
+    this.addMode = true
+    this.employeeForm.reset()
+  }
+
   saveEmployee() {
     console.log("Mentés...")
-    this.createEmployee()
-    this.toggleModal()
+    if (this.addMode) {
+      this.createEmployee()  
+    } else {
+      this.updateEmployee()
+    }
+    
+    this.hideModal()
   }
 
   createEmployee() {
@@ -79,5 +95,25 @@ export class EmployeeComponent {
       error: () => { }
     })
   }
-  editEmployee() { }
+  editEmployee(emp: Employee) {
+    console.log('Edit...')
+    console.log(emp)
+    this.toggleModal()
+    this.addMode = false
+
+    this.employeeForm.patchValue({
+      id: String(emp.id),
+      name: emp.name,
+      city: emp.city,
+      salary: String(emp.salary),
+      positionId: String(emp.positionId)
+    })
+
+  }
+
+  updateEmployee() {
+    console.log('Ide jön majd az update...')
+  }
+
+  deleteEmployee() {}
 }
