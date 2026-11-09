@@ -25,8 +25,8 @@ export class LoginComponent {
 
     this.auth.login(this.loginForm.value).subscribe({
       next: (data: any) => {
-        console.log(data)
-        localStorage.setItem("token", data.accessToken)
+        console.log('--------:' + data.data)
+        localStorage.setItem("token", data.data.token)
         this.auth.loginSuccess()
         this.router.navigate(['employee'])
       },

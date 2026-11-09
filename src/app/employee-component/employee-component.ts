@@ -23,11 +23,11 @@ export class EmployeeComponent {
   positions = signal<Position[]>([])
 
   employeeForm = this.builder.group({
-    id: [''],
+    id: [null as number | null],
     name: [''],
     city: [''],
-    salary: [''],
-    positionId: ['']
+    salary: [null as number | null],
+    positionId: [null as number | null]
   })
 
   visibleModal = false
@@ -76,9 +76,11 @@ export class EmployeeComponent {
 
   createEmployee() {
     // szogáltatás hívása
-    this.employeeApi.createEmployee(this.employeeForm.value).subscribe({
+    const emp = this.employeeForm.value as Employee
+    this.employeeApi.createEmployee(emp).subscribe({
       next: (data) => {
         console.log(data)
+        this.getEmployees()
       },
       error: (err) => {
         console.error(err)
@@ -102,27 +104,30 @@ export class EmployeeComponent {
     this.addMode = false
 
     this.employeeForm.patchValue({
-      id: String(emp.id),
+      id: emp.id,
       name: emp.name,
       city: emp.city,
-      salary: String(emp.salary),
-      positionId: String(emp.positionId)
+      salary: emp.salary,
+      positionId: emp.positionId
     })
 
   }
 
   updateEmployee() {
     console.log('Ide jön majd az update...')
-    // const emp: Employee = {
-    //   id: Number(this.employeeForm.value.id),
-    //   name: this.employeeForm.value.name,
-    //   city: this.employeeForm.value.city,
-    //   salary: Number(this.employeeForm.value.salary),
-    //   positionId: Number(this.employeeForm.value.positionId)
-    // }
-    // const emp = this.employeeForm.getRawValue()
-    // console.log('Az emp: ' + emp)
-    this.employeeApi.updateEmployee(this.employeeForm.value).subscribe({
+
+    const raw = this.employeeForm.getRawValue();
+    const emp1: Employee = {
+      id: raw.id ? Number(raw.id) : 0,
+      name: this.employeeForm.value.name ?? '',
+      city: this.employeeForm.value.city ?? '',
+      salary: raw.salary ? Number(raw.salary) : 0,
+      positionId: raw.positionId ? Number(this.employeeForm.value.positionId) : 0
+    }
+
+    const emp2 = this.employeeForm.getRawValue() as Employee
+    const emp3 = this.employeeForm.value as Employee
+    this.employeeApi.updateEmployee(emp3).subscribe({
       next: (res) => { 
         console.log('Eredmény: ' + res)
         this.getEmployees()
@@ -138,7 +143,9 @@ export class EmployeeComponent {
         console.log(res)
         this.getEmployees()
       },
-      error: () => {}
+      error: (err) => {
+        console.error(err)
+      }
     })
   }
 }

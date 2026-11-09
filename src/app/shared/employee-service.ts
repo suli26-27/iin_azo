@@ -11,21 +11,21 @@ export class EmployeeService {
         const url = this.host + '/employees'
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}`}
-        return this.http.get(url, { headers })
+        return this.http.get<Employee[]>(url, { headers })
     }
 
-    createEmployee(employee: any) {
+    createEmployee(employee: Employee) {
         const url = this.host + '/employees'
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}`}
-        return this.http.post(url, employee, { headers })
+        return this.http.post<Employee>(url, employee, { headers })
     }
 
-    updateEmployee(emp: any) {
+    updateEmployee(emp: Employee) {
         const url = `${this.host}/employees/${emp.id}`
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}` }
-        return this.http.put(url, emp, { headers })
+        return this.http.put<Employee>(url, emp, { headers })
     }
 
     deleteEmployee(id: number) {
