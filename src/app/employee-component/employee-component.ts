@@ -3,9 +3,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeService } from '../shared/employee-service';
 import { Position } from '../interfaces/position';
 import { PositionService } from '../shared/position-service';
+import { PositionNamePipe } from '../shared/pipe/position-name-pipe';
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PositionNamePipe],
   selector: 'app-employee-component',
   styleUrl: './employee-component.css',
   templateUrl: './employee-component.html',
@@ -28,13 +29,14 @@ export class EmployeeComponent {
   })
 
   visibleModal = false
+  addMode = true
 
   ngOnInit() {
     console.log('kezdődik...')
     this.getEmployees()
     this.getPositions()
   }
-  
+
   getEmployees() {
     this.employeeApi.getEmployees().subscribe({
       next: (res: any) => {
@@ -42,12 +44,12 @@ export class EmployeeComponent {
         // this.employees = res.data
         this.employees.set(res.data)
       },
-      error: () => {}
+      error: () => { }
     })
   }
 
   toggleModal() {
-    this.visibleModal = ! this.visibleModal
+    this.visibleModal = !this.visibleModal
   }
 
   saveEmployee() {
@@ -74,7 +76,8 @@ export class EmployeeComponent {
         console.log(res.data)
         this.positions.set(res.data)
       },
-      error: () => {}
+      error: () => { }
     })
   }
+  editEmployee() { }
 }

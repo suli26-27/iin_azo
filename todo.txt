@@ -1,6 +1,5 @@
-TODO: Beosztás lehessen beállítani a dolgozónak (employee komp.)
-TODO: Dolgozók update művelet
-TODO: Dolgozók delete művelet
-TODO: Beosztások kezelése (CRUD)
-TODO: Projektek kezelése (CRUD)
-TODO: Dolgozók és projektek összerendelése
+Dolgozók update művelet
+Dolgozók delete művelet
+Beosztások kezelése (CRUD)
+Projektek kezelése (CRUD)
+Dolgozók és projektek összerendelése
