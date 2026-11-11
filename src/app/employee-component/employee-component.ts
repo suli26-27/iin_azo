@@ -35,6 +35,10 @@ export class EmployeeComponent {
   visibleModal = false
   addMode = true
 
+
+  statusMessage: string = '';
+  isError: boolean = false;  
+
   ngOnInit() {
     console.log('kezdődik...')
     this.getEmployees()
@@ -153,8 +157,13 @@ export class EmployeeComponent {
       next: (res) => {
         console.log(res)
         this.getEmployees()
+        Swal.fire({
+        title: 'Sikeres törlés'
+    })
       },
-      error: () => {}
+      error: (err) => {
+
+      }
     })
   }
 }

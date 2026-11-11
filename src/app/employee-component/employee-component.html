@@ -3,6 +3,16 @@
 <button class="btn btn-primary" (click)="toggleModal()">Hozzáad</button>
 
 
+@if (statusMessage) {
+  <div class="alert shadow position-fixed top-0 start-50 translate-middle-x mt-3 z-3" 
+       [class.alert-danger]="isError" 
+       [class.alert-success]="!isError" 
+       role="alert">
+    {{ statusMessage }}
+  </div>
+}
+
+
 <table class="table table-striped">
   <thead>
     <tr>
