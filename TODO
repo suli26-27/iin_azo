@@ -1,5 +1,10 @@
 Beosztások kezelése (CRUD)
-Projektek kezelése (CRUD)
-Dolgozók és projektek összerendelése
-A válaszokban néhol any típus van az employee komponensben
-Az employee komponensben az employee[] tömb any típusú
+    ✔ Read @done(26-11-11 12:23)
+    ☐ Create
+    ☐ Update
+    ☐ Delete
+
+☐ Projektek kezelése (CRUD)
+☐ Dolgozók és projektek összerendelése
+☐ A válaszokban néhol any típus van az employee komponensben
+✘ Az employee komponensben az employee[] tömb any típusú @cancelled(26-11-11 12:24)
