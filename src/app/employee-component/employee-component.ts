@@ -158,7 +158,8 @@ export class EmployeeComponent {
         console.log(res)
         this.getEmployees()
         Swal.fire({
-        title: 'Sikeres törlés'
+        title: 'Sikeres törlés',
+        timer: 2000
     })
       },
       error: (err) => {
