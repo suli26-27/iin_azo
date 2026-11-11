@@ -34,7 +34,7 @@
       </button>
       </td>
       <td>
-        <button class="btn btn-danger" (click)="deleteEmployee(emp.id)">
+        <button class="btn btn-danger" (click)="startDeleteEmployee(emp.id)">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
   viewBox="0 0 16 16">
   <path
@@ -64,7 +64,7 @@
             {{addMode ? 'Hozzáadás' : 'Módosítás'}}
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="hideModal()"></button>
+            (click)="startHideModal()"></button>
         </div>
         <div class="modal-body">
 
@@ -105,7 +105,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" 
-          (click)="hideModal()">Bezárás</button>
+          (click)="startHideModal()">Bezárás</button>
 
           <button type="submit" class="btn btn-primary" 
           form="employeeForm">Mentés</button>

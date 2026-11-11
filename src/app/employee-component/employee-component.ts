@@ -5,6 +5,8 @@ import { Position } from '../interfaces/position';
 import { PositionService } from '../shared/position-service';
 import { PositionNamePipe } from '../shared/pipe/position-name-pipe';
 import { Employee } from '../interfaces/employee';
+import { ApiResponse } from '../interfaces/api-response';
+import Swal from 'sweetalert2';
 
 @Component({
   imports: [ReactiveFormsModule, PositionNamePipe],
@@ -19,7 +21,7 @@ export class EmployeeComponent {
   positionsApi = inject(PositionService)
 
   //employees!: any[]
-  employees = signal<any[]>([])
+  employees = signal<Employee[]>([])
   positions = signal<Position[]>([])
 
   employeeForm = this.builder.group({
@@ -27,7 +29,7 @@ export class EmployeeComponent {
     name: [''],
     city: [''],
     salary: [null as number | null],
-    positionId: [null as number | null | string]
+    positionId: [null as number | null]
   })
 
   visibleModal = false
@@ -41,10 +43,14 @@ export class EmployeeComponent {
 
   getEmployees() {
     this.employeeApi.getEmployees().subscribe({
-      next: (res: any) => {
+      next: (res: ApiResponse<Employee[]>) => {
         console.log(res)
-        // this.employees = res.data
-        this.employees.set(res.data)
+        if(res.success) {
+          this.employees.set(res.data)
+        }else {
+          
+        }
+        
       },
       error: () => { }
     })
@@ -57,7 +63,7 @@ export class EmployeeComponent {
   showModal() {
     this.visibleModal = true
   }
-  hideModal() {
+  startHideModal() {
     this.visibleModal = false
     this.addMode = true
     this.employeeForm.reset()
@@ -71,7 +77,7 @@ export class EmployeeComponent {
       this.updateEmployee()
     }
     
-    this.hideModal()
+    this.startHideModal()
   }
 
   createEmployee() {
@@ -124,6 +130,21 @@ export class EmployeeComponent {
       },
       error: () => {}
     })
+  }
+
+
+  startDeleteEmployee(id: number) {
+    Swal.fire({
+      title: 'Biztosan törlöd?',
+      showDenyButton: true,
+      confirmButtonText: 'Igen',
+      denyButtonText: 'Nem'
+    }).then( (res) => {
+      if(res.isConfirmed) {
+        this.deleteEmployee(id)
+      }
+    })
+    
   }
 
   deleteEmployee(id: number) {

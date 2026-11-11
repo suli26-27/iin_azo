@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Employee } from '../interfaces/employee';
+import { ApiResponse } from '../interfaces/api-response';
 
 @Service()
 export class EmployeeService {
@@ -11,28 +12,28 @@ export class EmployeeService {
         const url = this.host + '/employees'
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}`}
-        return this.http.get(url, { headers })
+        return this.http.get<ApiResponse<Employee[]>>(url, { headers })
     }
 
     createEmployee(employee: Employee) {
         const url = this.host + '/employees'
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}`}
-        return this.http.post(url, employee, { headers })
+        return this.http.post<ApiResponse<Employee>>(url, employee, { headers })
     }
 
     updateEmployee(emp: Employee) {
         const url = `${this.host}/employees/${emp.id}`
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}` }
-        return this.http.put(url, emp, { headers })
+        return this.http.put<ApiResponse<Employee>>(url, emp, { headers })
     }
 
     deleteEmployee(id: number) {
         const url = `${this.host}/employees/${id}`
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}` }   
-        return this.http.delete(url, { headers })
+        return this.http.delete<ApiResponse<Employee>>(url, { headers })
     }
 
 }
