@@ -14,14 +14,14 @@ export class EmployeeService {
         return this.http.get(url, { headers })
     }
 
-    createEmployee(employee: any) {
+    createEmployee(employee: Employee) {
         const url = this.host + '/employees'
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}`}
         return this.http.post(url, employee, { headers })
     }
 
-    updateEmployee(emp: any) {
+    updateEmployee(emp: Employee) {
         const url = `${this.host}/employees/${emp.id}`
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}` }

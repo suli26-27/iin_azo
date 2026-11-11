@@ -1,9 +1,0 @@
-A login nem teszi el a tokent (pedig már eltette)
-	undefined-t tesz el
-Employee típusra átállás
-    Valószínűleg azért mert váltottunk Backendet.
-    Ott pedig más kulcsokon keresztül érhető el.
-
-Beosztások kezelése (CRUD)
-Projektek kezelése (CRUD)
-Dolgozók és projektek összerendelése

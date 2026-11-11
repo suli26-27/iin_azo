@@ -24,9 +24,10 @@ export class LoginComponent {
     console.log(this.loginForm.value)
 
     this.auth.login(this.loginForm.value).subscribe({
-      next: (data: any) => {
-        console.log(data)
-        localStorage.setItem("token", data.accessToken)
+      next: (res: any) => {
+        console.log(res)
+        // localStorage.setItem("token", res.accessToken)
+        localStorage.setItem("token", res.data.token)
         this.auth.loginSuccess()
         this.router.navigate(['employee'])
       },
