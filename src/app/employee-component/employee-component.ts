@@ -142,7 +142,8 @@ export class EmployeeComponent {
       title: 'Biztosan törlöd?',
       showDenyButton: true,
       confirmButtonText: 'Igen',
-      denyButtonText: 'Nem'
+      denyButtonText: 'Nem',
+      icon: "warning",
     }).then( (res) => {
       if(res.isConfirmed) {
         this.deleteEmployee(id)
@@ -157,13 +158,19 @@ export class EmployeeComponent {
       next: (res) => {
         console.log(res)
         this.getEmployees()
+
         Swal.fire({
-        title: 'Sikeres törlés',
-        timer: 2000
-    })
+          title: 'Sikeres törlés',
+          icon: "success",
+          timer: 1500
+        })
       },
       error: (err) => {
-
+        Swal.fire({
+          title: 'Hiba! A törlés sikertelen!',
+          icon: "error",
+          footer: err      
+        })
       }
     })
   }

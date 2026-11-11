@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Employee } from '../interfaces/employee';
 import { ApiResponse } from '../interfaces/api-response';
+// import { throwError } from 'rxjs';
 
 @Service()
 export class EmployeeService {
@@ -30,9 +31,13 @@ export class EmployeeService {
     }
 
     deleteEmployee(id: number) {
+        
+        // return throwError(() => new Error('Szándékos teszt hiba'));
+
         const url = `${this.host}/employees/${id}`
         const token = localStorage.getItem('token')
         const headers = { Authorization: `Bearer ${token}` }   
+        
         return this.http.delete<ApiResponse<Employee>>(url, { headers })
     }
 

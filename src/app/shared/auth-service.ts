@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiResponse } from '../interfaces/api-response';
+import { User } from '../interfaces/user';
 
 @Service()
 export class AuthService {
@@ -12,7 +14,7 @@ export class AuthService {
     
     login(user: any) {
         const url = 'http://localhost:8000/api/login'
-        return this.http.post(url, user)
+        return this.http.post<ApiResponse<User>>(url, user)
     }
 
     loginSuccess() {
